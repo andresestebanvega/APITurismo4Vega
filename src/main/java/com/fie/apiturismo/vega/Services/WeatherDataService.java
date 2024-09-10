@@ -50,7 +50,8 @@ public class WeatherDataService {
 
         // Crear la entidad WeatherDataEntity
         WeatherDataEntity weatherData = new WeatherDataEntity();
-        weatherData.setSensacionTermica(main.getDouble("feels_like"));
+        weatherData.setSensacionTermica(main.getDouble("feels_like") - 273.15); // Convertir de Kelvin a Celsius
+
         weatherData.setHumedad(main.getInt("humidity"));
         weatherData.setVelocidadViento(wind.getDouble("speed"));
         weatherData.setNubosidad(jsonObject.getJSONObject("clouds").getInt("all"));
@@ -104,6 +105,10 @@ public class WeatherDataService {
             return new Calido();
         }
     }
+
+
+
+
 }
 
 
