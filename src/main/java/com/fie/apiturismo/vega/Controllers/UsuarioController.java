@@ -19,10 +19,12 @@ public class UsuarioController {
         return ResponseEntity.ok(nuevoUsuario);
     }
 
+    // Inicio de sesión - Recibe un JSON con email y contraseña
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String contrasena) {
-        UsuarioEntity usuario = usuarioService.validarCredenciales(email, contrasena);
-        if (usuario != null) {
+    public ResponseEntity<String> login(@RequestBody UsuarioEntity usuario) {
+        // Validamos las credenciales del usuario utilizando el email y la contraseña
+        UsuarioEntity usuarioValidado = usuarioService.validarCredenciales(usuario.getEmail(), usuario.getContrasena());
+        if (usuarioValidado != null) {
             return ResponseEntity.ok("Inicio de sesión exitoso");
         } else {
             return ResponseEntity.status(401).body("Credenciales incorrectas");
